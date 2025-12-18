@@ -48,3 +48,68 @@ The solution uses AWS managed services to reduce operational complexity:
 │   ├── SDD.pdf
 │   └── diagrams/
 └── README.md
+
+
+
+CI/CD Pipeline
+
+The CI/CD pipeline automatically:
+
+Validates Terraform configuration
+
+Ensures infrastructure consistency
+
+Prevents faulty changes from being merged
+
+Pipeline stages include:
+
+Source checkout
+
+Terraform initialization
+
+Terraform validation
+
+Deployment readiness checks
+
+🧪 Testing Strategy
+
+Infrastructure validation using terraform validate
+
+CI pipeline execution testing via GitHub Actions
+
+Manual smoke testing for deployment readiness
+
+Security checks through IAM role separation and encryption policies
+
+🔐 Security Considerations
+
+Least-privilege IAM roles
+
+Encrypted storage using AWS KMS
+
+Secure secrets handling via GitHub Actions
+
+HTTPS enforced at load balancer and CDN level
+
+📊 Monitoring & Logging
+
+Application and infrastructure metrics via CloudWatch
+
+Alerts delivered through SNS
+
+Log aggregation for troubleshooting and audits
+
+📘 Documentation
+
+Software Design Specification (IEEE 29148)
+
+Architecture diagrams (draw.io)
+
+Test cases and validation reports
+
+
+Author
+Dassaev Tchouta
+DevOps Capstone Project
+
+
