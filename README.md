@@ -1,14 +1,14 @@
 # SOS Online Shop — DevOps Capstone Project
 
-## 📌 Project Overview
+## Project Overview
 This repository contains the DevOps implementation for **SOS Online Shop**, an e-commerce platform.  
 The project focuses on automating cloud infrastructure provisioning, CI/CD pipelines, testing, monitoring, and security using industry-standard DevOps practices.
 
 This work is developed as part of an academic **Capstone Project**, demonstrating real-world DevOps workflows and cloud deployment strategies.
 
----
 
-## 🧩 Project Objectives
+
+## Project Objectives
 - Automate infrastructure deployment using **Terraform**
 - Implement CI/CD pipelines with **GitHub Actions**
 - Ensure infrastructure validation and testing
@@ -16,9 +16,9 @@ This work is developed as part of an academic **Capstone Project**, demonstratin
 - Enable monitoring, logging, and alerting
 - Align implementation with an IEEE 29148-compliant SDD
 
----
 
-## 🏗️ Architecture Overview
+
+## Architecture Overview
 The solution uses AWS managed services to reduce operational complexity:
 
 - **GitHub** — Source control
@@ -33,9 +33,9 @@ The solution uses AWS managed services to reduce operational complexity:
   - CloudWatch & SNS (Monitoring & Alerts)
   - IAM & KMS (Security)
 
----
 
-## 📂 Repository Structure
+
+## Repository Structure
 ```text
 .
 ├── .github/
