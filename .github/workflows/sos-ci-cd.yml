@@ -3,21 +3,11 @@ name: SOS Online Shop - CI/CD Pipeline
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-env:
-  AWS_REGION: us-east-1
-  TF_VAR_project_name: sos-online-shop
-  TF_VAR_environment: dev
 
 jobs:
-  terraform:
+  deploy:
     name: Terraform CI/CD
     runs-on: ubuntu-latest
-
-    # Seulement exécuter l'apply sur push vers main
-    environment: production
 
     steps:
       - name: Checkout code
@@ -28,7 +18,7 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
+          aws-region: us-east-1
 
       - name: Set up Terraform
         uses: hashicorp/setup-terraform@v2
@@ -46,16 +36,8 @@ jobs:
       - name: Terraform Plan
         run: terraform plan -no-color
         working-directory: ./infra
-        id: plan
 
-      - name: Terraform Apply (auto-approve on main branch only)
+      - name: Terraform Apply
         if: github.ref == 'refs/heads/main'
         run: terraform apply -auto-approve
-        working-directory: ./infra
-
-      - name: Display Deployment Outputs (for verification)
-        if: github.ref == 'refs/heads/main'
-        run: |
-          echo "✅ SOS Online Shop deployed successfully!"
-          terraform output -json | jq .
         working-directory: ./infra
