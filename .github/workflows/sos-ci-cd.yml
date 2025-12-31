@@ -2,31 +2,60 @@ name: SOS Online Shop - CI/CD Pipeline
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
-    branches:
-      - main
+    branches: [ main ]
+
+env:
+  AWS_REGION: us-east-1
+  TF_VAR_project_name: sos-online-shop
+  TF_VAR_environment: dev
 
 jobs:
-  build-and-validate:
-    name: CI Validation Job
+  terraform:
+    name: Terraform CI/CD
     runs-on: ubuntu-latest
 
+    # Seulement exécuter l'apply sur push vers main
+    environment: production
+
     steps:
-      - name: Checkout source code
+      - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
       - name: Set up Terraform
-        uses: hashicorp/setup-terraform@v3
+        uses: hashicorp/setup-terraform@v2
+        with:
+          terraform_version: 1.5.7
 
       - name: Terraform Init
         run: terraform init
-        working-directory: infra
+        working-directory: ./infra
 
       - name: Terraform Validate
         run: terraform validate
-        working-directory: infra
+        working-directory: ./infra
 
-      - name: CI Pipeline Status
-        run: echo "CI pipeline executed successfully for SOS Online Shop"
+      - name: Terraform Plan
+        run: terraform plan -no-color
+        working-directory: ./infra
+        id: plan
+
+      - name: Terraform Apply (auto-approve on main branch only)
+        if: github.ref == 'refs/heads/main'
+        run: terraform apply -auto-approve
+        working-directory: ./infra
+
+      - name: Display Deployment Outputs (for verification)
+        if: github.ref == 'refs/heads/main'
+        run: |
+          echo "✅ SOS Online Shop deployed successfully!"
+          terraform output -json | jq .
+        working-directory: ./infra
