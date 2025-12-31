@@ -113,3 +113,26 @@ Dassaev Tchouta
 DevOps Capstone Project
 
 
+
+# SOS Online Shop - Infrastructure as Code (IaC)
+
+This repository contains the **Terraform configuration** for provisioning the AWS infrastructure of the **SOS Online Shop** e-commerce platform, a capstone project for the **MSIT program at University of the People**.
+
+## 📌 Project Context
+SOS Online Shop is a small Cameroonian e-commerce business seeking to modernize its digital presence. This infrastructure enables:
+- Automated deployment via CI/CD
+- High availability (target: 99.2% uptime)
+- Secure and scalable cloud architecture
+- Real-time monitoring via CloudWatch
+
+## 🛠️ Infrastructure Overview
+- **Provider**: AWS (`us-east-1`)
+- **Compute**: EC2 (t2.micro, Ubuntu 22.04)
+- **Networking**: VPC, Public Subnet, Internet Gateway, Security Group
+- **Storage**: S3 (for static assets)
+- **Monitoring**: CloudWatch Log Group
+
+## 🔄 CI/CD Pipeline
+Deployed automatically via **GitHub Actions** on every push to `main`.
+
+## 📂 Structure
